@@ -1,0 +1,61 @@
+﻿@model List<Service>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="table-responsive pt-3">
+    <a asp-controller="Service" asp-action="Create" style="color:white; font-size:20px;" class="my-2 btn btn-lg btn-success">Create service</a>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Subtitle
+                </th>
+                <th>
+                    Settings
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Service service in Model)
+            {
+            <tr>
+                <td>
+                    <img style="width:150px; height:150px" src="~/assets/img/@service.Image" />
+                </td>
+                <td>
+                    @service.Title
+                </td>
+                <td>
+                    @if (service.Subtitle.Length >= 30)
+                    {
+                        @(service.Subtitle.Substring(0, 30).ToString() + "...")
+                    }
+                    else
+                    {
+                        @service.Subtitle
+                    }
+                </td>
+
+               
+                <td>
+                    <div class="d-flex">
+                        <div class="detail">
+                            <a asp-controller="Service" asp-action="Detail" asp-route-id="@service.Id" class="btn btn-outline-primary"><i class="mdi mdi-details"></i></a>
+                        </div>
+                        <div class="ms-2 delete">
+                            <a asp-controller="Service" asp-action="Delete" asp-route-id="@service.Id" class="btn btn-outline-danger"><i class="mdi mdi-delete-forever"></i></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
